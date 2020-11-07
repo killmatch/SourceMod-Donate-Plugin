@@ -56,7 +56,7 @@ public void OnPluginStart()
 	dbConnect();
 	mincredits = CreateConVar("turkmodders_min_donate", "10", "Minimum donate miktari");
 	minseslicredits = CreateConVar("turkmodders_min_donate_mesaj", "500", "Minimum kac kredi donate olursa ozel mesaja izin verilsin");
-	sadecekomutcu = CreateConVar("turkmodders_sadece_kom", "1", "Sadece komutcu olan kisiye donate atilabilir 1=evet 0=hayir");
+	sadecekomutcu = CreateConVar("turkmodders_sadece_kom", "0", "Sadece komutcu olan kisiye donate atilabilir 1=evet 0=hayir");
 	AutoExecConfig(true, "turkmodders_donate");
 	RegConsoleCmd("sm_donate", donate);
 	RegConsoleCmd("sm_bagis", donate);
@@ -237,7 +237,7 @@ public Action donate(int client, int args) {
 	{
 		if(progress)
 		{
-			CPrintToChat(client, "{darkred}[TurkModders] {darkblue}Şuan bir donate gösteriliyor, lütfen birazdan tekrar deneyiniz.");
+			CPrintToChat(client, "{darkred}[Masco] {darkblue}Şuan bir donate gösteriliyor, lütfen birazdan tekrar deneyiniz.");
 			return Plugin_Handled;
 		}
 		
@@ -254,13 +254,13 @@ public Action donate(int client, int args) {
 		
 		if (target == -1)
 		{
-			CPrintToChat(client, "{darkred}[TurkModders] {darkblue}Hedef bulunamadı.");
+			CPrintToChat(client, "{darkred}[Masco] {darkblue}Hedef bulunamadı.");
 			return Plugin_Handled;
 		}
 		
 		if(target == client)
 		{
-			CPrintToChat(client, "{darkred}[TurkModders] {darkblue}Kendinize donate atamazsınız.");
+			CPrintToChat(client, "{darkred}[Masco] {darkblue}Kendinize donate atamazsınız.");
 			return Plugin_Handled;
 		}
 		
@@ -268,7 +268,7 @@ public Action donate(int client, int args) {
 		{
 			if(!warden_iswarden(target))
 			{
-				CPrintToChat(client, "{darkred}[TurkModders] {darkblue}Sadece komutçu olan kişiye donate atılabilir.");
+				CPrintToChat(client, "{darkred}[Masco] {darkblue}Sadece komutçu olan kişiye donate atılabilir.");
 				return Plugin_Handled;
 			}
 		}
@@ -276,13 +276,13 @@ public Action donate(int client, int args) {
 		int miktar = StringToInt(arg2);
 		if(miktar < GetConVarInt(mincredits))
 		{
-			CPrintToChat(client, "{darkred}[TurkModders] {darkblue}Minimum %i kredi bağış yapabilirsiniz.", GetConVarInt(mincredits));
+			CPrintToChat(client, "{darkred}[Masco] {darkblue}Minimum %i kredi bağış yapabilirsiniz.", GetConVarInt(mincredits));
 			return Plugin_Handled;
 		}
 		
 		if(Store_GetClientCredits(client) < miktar)
 		{
-			CPrintToChat(client, "{darkred}[TurkModders] {darkblue}Hesabınızda yeterli kredi bulunmuyor.");
+			CPrintToChat(client, "{darkred}[Masco] {darkblue}Hesabınızda yeterli kredi bulunmuyor.");
 			return Plugin_Handled;
 		}
 		
@@ -339,7 +339,7 @@ public Action donate(int client, int args) {
 		}
 		else 
 		{ 
-			CPrintToChat(target, "{darkred}[TurkModders] {darkblue}Donate için resim ve ses dosyası seçmediğiniz için sadece ekranda donate bildiri mesajı görüntülendi. !donate yazıp seçebilirsiniz."); 
+			CPrintToChat(target, "{darkred}[Masco] {darkblue}Donate için resim ve ses dosyası seçmediğiniz için sadece ekranda donate bildiri mesajı görüntülendi. !donate yazıp seçebilirsiniz."); 
 		}
 		
 		CreateTimer(5.0, temizle);
@@ -517,7 +517,7 @@ public MenuCallBack(Handle menu, MenuAction:action, client, itemNum)
         GetMenuItem(menu, itemNum, info, sizeof(info));
         if ( strcmp(info,"option0") == 0 )
         {
-			CPrintToChat(client, "{darkred}[TurkModders] {darkblue}!donate <isim> <miktar>");
+			CPrintToChat(client, "{darkred}[Masco] {darkblue}!donate <isim> <miktar>");
         }
         else if ( strcmp(info,"option1") == 0 )
         {
